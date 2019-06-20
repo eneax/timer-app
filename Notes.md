@@ -24,3 +24,5 @@ The main advantage of the *single responsibility principle* is that it helps kee
 
 Our components start off without using any state. 
 Just static HTML and CSS with static props that are passed from the parent component to the children.
+The bottom-level components are those in charge of holding the majority of the page's HTML and they are called leaf components.
+Meanwhile, the components situated above the leaf components have to deal with the orchestration of the app.
