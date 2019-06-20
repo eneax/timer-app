@@ -18,3 +18,9 @@ When building a React app, there is a series of steps to follow in order to make
 
 When we think about components, we have to consider them as functions or objects. A component should only be responsible for one piece of functionality (single responsibility principle).
 The main advantage of the *single responsibility principle* is that it helps keeping components simple and reusable.
+
+
+## 2. Build a static version of the app
+
+Our components start off without using any state. 
+Just static HTML and CSS with static props that are passed from the parent component to the children.

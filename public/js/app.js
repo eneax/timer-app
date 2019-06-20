@@ -1,11 +1,11 @@
-class TimerDashboard extends React.Component {
+class TimersDashboard extends React.Component {
   render() {
     return (
       <div className="ui three column centered grid">
         <div className="column">
           <EditableTimerList />
           <ToggleableTimerForm 
-            isOpen={true} // it's used by the child component to determine whether to render a “+” or TimerForm”
+            isOpen={false} // it's used by the child component to determine whether to render a “+” or TimerForm”
           />
         </div>
       </div>
@@ -21,11 +21,13 @@ class ToggleableTimerForm extends React.Component {
         <TimerForm />
       );
     } else {
-      <div className="ui basic content center aligned segment">
-        <button className="ui basic button icon">
-          <i className="plus icon" />
-        </button>
-      </div>;
+      return (
+        <div className='ui basic content center aligned segment'>
+          <button className='ui basic button icon'>
+            <i className='plus icon' />
+          </button>
+        </div>
+      );
     }
   }
 }
@@ -152,6 +154,6 @@ class TimerForm extends React.Component {
 
 
 ReactDOM.render(
-  <TimerDashboard />,
+  <TimersDashboard />,
   document.getElementById('content')
 );
