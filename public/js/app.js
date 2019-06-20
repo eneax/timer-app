@@ -14,6 +14,23 @@ class TimerDashboard extends React.Component {
 }
 
 
+class ToggleableTimerForm extends React.Component {
+  render() {
+    if (this.props.isOpen) {
+      return (
+        <TimerForm />
+      );
+    } else {
+      <div className="ui basic content center aligned segment">
+        <button className="ui basic button icon">
+          <i className="plus icon" />
+        </button>
+      </div>;
+    }
+  }
+}
+
+
 class EditableTimerList extends React.Component {
   render() {
     return (
@@ -95,4 +112,5 @@ class TimerForm extends React.Component {
     );
   }
 }
+
 
