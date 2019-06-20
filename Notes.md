@@ -12,3 +12,9 @@ When building a React app, there is a series of steps to follow in order to make
 5. Hard-code initial states
 6. Add inverse data flow
 7. Add server communication
+
+
+## 1. Breaking the app into components
+
+When we think about components, we have to consider them as functions or objects. A component should only be responsible for one piece of functionality (single responsibility principle).
+The main advantage of the *single responsibility principle* is that it helps keeping components simple and reusable.
