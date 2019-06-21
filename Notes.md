@@ -37,3 +37,14 @@ Once we have identified the data, we need to consider if it is state or not. It 
 * it changes over time
 * it cannot be computed from other state or props
 * we have to deal with form (special case)
+
+
+## 4: Determine in which component each piece of state should live
+
+For each piece of state:
+
+* identify every component that renders something based on that state
+* find a common owner component (a single component above all the components that need the state in the hierarchy)
+* either the common owner or another component higher up in the hierarchy should own the state
+* if you can’t find a component where it makes sense to own the state, create a new component simply for holding the state and add it somewhere in the hierarchy above the common owner component
+
