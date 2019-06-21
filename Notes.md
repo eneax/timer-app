@@ -26,3 +26,14 @@ Our components start off without using any state.
 Just static HTML and CSS with static props that are passed from the parent component to the children.
 The bottom-level components are those in charge of holding the majority of the page's HTML and they are called leaf components.
 Meanwhile, the components situated above the leaf components have to deal with the orchestration of the app.
+
+
+## 3: Determine what should be stateful
+
+To understand what exactly should be mutable, we need to look at where we define and use props, because there is where *data* will be.
+Once we have identified the data, we need to consider if it is state or not. It is stateful when:
+
+* data is defined within the component and not passed in from a parent
+* it changes over time
+* it cannot be computed from other state or props
+* we have to deal with form (special case)
