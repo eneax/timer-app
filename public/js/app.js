@@ -1,29 +1,58 @@
 class TimersDashboard extends React.Component {
+  state = {
+    timers: [
+      {
+        title: 'Practice squat',
+        project: 'Gym Chores',
+        id: uuid.v4(),
+        elapsed: 5456099,
+        runningSince: Date.now(),
+      },
+      {
+        title: 'Bake squash',
+        project: 'Kitchen Chores',
+        id: uuid.v4(),
+        elapsed: 1273998,
+        runningSince: null,
+      },
+    ],
+  };
+
   render() {
     return (
-      <div className="ui three column centered grid">
-        <div className="column">
-          <EditableTimerList />
-          <ToggleableTimerForm 
-            isOpen={false} // it's used by the child component to determine whether to render a “+” or TimerForm”
+      <div className='ui three column centered grid'>
+        <div className='column'>
+          <EditableTimerList
+            timers={this.state.timers}
           />
+          <ToggleableTimerForm />
         </div>
       </div>
     );
   }
 }
 
-
 class ToggleableTimerForm extends React.Component {
+  state = {
+    isOpen: false,
+  };
+
+  handleFormOpen = () => {
+    this.setState({ isOpen: true });
+  };
+
   render() {
-    if (this.props.isOpen) {
+    if (this.state.isOpen) {
       return (
         <TimerForm />
       );
     } else {
       return (
         <div className='ui basic content center aligned segment'>
-          <button className='ui basic button icon'>
+          <button
+            className='ui basic button icon'
+            onClick={this.handleFormOpen}
+          >
             <i className='plus icon' />
           </button>
         </div>
@@ -32,61 +61,57 @@ class ToggleableTimerForm extends React.Component {
   }
 }
 
-
 class EditableTimerList extends React.Component {
   render() {
+    const timers = this.props.timers.map((timer) => (
+      <EditableTimer
+        key={timer.id}
+        id={timer.id}
+        title={timer.title}
+        project={timer.project}
+        elapsed={timer.elapsed}
+        runningSince={timer.runningSince}
+      />
+    ));
     return (
-      <div id="timers">
-        <EditableTimer 
-          title='Learn React'
-          project='Web Domination'
-          elapsed='8986300'
-          runningSince={null}
-          editFormOpen={false}  // 'editFormOpen' determines which sub-component to render
-        />
-
-        <EditableTimer 
-          title='Learn extreme ironing'
-          project='World Domination'
-          elapsed='3890985'
-          runningSince={null}
-          editFormOpen={true}
-        />
+      <div id='timers'>
+        {timers}
       </div>
     );
   }
 }
 
-
-// “EditableTimer returns either a TimerForm or a Timer based on the prop 'editFormOpen'
 class EditableTimer extends React.Component {
+  state = {
+    editFormOpen: false,
+  };
+
   render() {
-    if (this.props.editFormOpen) {
+    if (this.state.editFormOpen) {
       return (
-        <TimerForm 
+        <TimerForm
+          id={this.props.id}
           title={this.props.title}
           project={this.props.project}
         />
-      )
+      );
     } else {
       return (
-        <Timer 
+        <Timer
+          id={this.props.id}
           title={this.props.title}
           project={this.props.project}
           elapsed={this.props.elapsed}
           runningSince={this.props.runningSince}
         />
-      )
+      );
     }
   }
 }
 
-
 class Timer extends React.Component {
   render() {
-    // elapsed is in milliseconds, but we use a helper function to render it as 'HH:MM:SS'
     const elapsedString = helpers.renderElapsedString(this.props.elapsed);
-
     return (
       <div className='ui centered card'>
         <div className='content'>
@@ -118,30 +143,47 @@ class Timer extends React.Component {
   }
 }
 
-
 class TimerForm extends React.Component {
+  state = {
+    title: this.props.title || '',
+    project: this.props.project || '',
+  };
+
+  handleTitleChange = (e) => {
+    this.setState({ title: e.target.value });
+  };
+
+  handleProjectChange = (e) => {
+    this.setState({ project: e.target.value });
+  };
+
   render() {
     const submitText = this.props.title ? 'Update' : 'Create';
-
     return (
-      <div className="ui centered card">
-        <div className="content">
-          <div className="ui form">
-            <div className="field">
+      <div className='ui centered card'>
+        <div className='content'>
+          <div className='ui form'>
+            <div className='field'>
               <label>Title</label>
-              <input type="text" defaultValue={this.props.title} />
+              <input
+                type='text'
+                value={this.state.title}
+                onChange={this.handleTitleChange}
+              />
             </div>
-
-            <div className="field">
+            <div className='field'>
               <label>Project</label>
-              <input type="text" defaultValue={this.props.project} />
+              <input
+                type='text'
+                value={this.state.project}
+                onChange={this.handleProjectChange}
+              />
             </div>
-
-            <div className="ui two bottom attached buttons">
-              <button className="ui basic blue button">
+            <div className='ui two bottom attached buttons'>
+              <button className='ui basic blue button'>
                 {submitText}
               </button>
-              <button className="ui basic red button">
+              <button className='ui basic red button'>
                 Cancel
               </button>
             </div>
@@ -151,7 +193,6 @@ class TimerForm extends React.Component {
     );
   }
 }
-
 
 ReactDOM.render(
   <TimersDashboard />,
