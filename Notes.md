@@ -48,3 +48,11 @@ For each piece of state:
 * either the common owner or another component higher up in the hierarchy should own the state
 * if you can’t find a component where it makes sense to own the state, create a new component simply for holding the state and add it somewhere in the hierarchy above the common owner component
 
+
+## 5: Hard-code initial states
+
+Before communicating with a server, we need to define the initial states within the parent components and make sure that the state is passed down to the children.
+
+Props act as a one-way data pipeline. While state is initially managed by parent components, it flows subsequently down to the children as props.
+
+Once the state is updated, the parent component that manages that state calls *render()* and re-renders while causing its children to re-render as well.
