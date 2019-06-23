@@ -56,3 +56,67 @@ Before communicating with a server, we need to define the initial states within 
 Props act as a one-way data pipeline. While state is initially managed by parent components, it flows subsequently down to the children as props.
 
 Once the state is updated, the parent component that manages that state calls *render()* and re-renders while causing its children to re-render as well.
+
+
+### Special Case: Forms
+
+In React, forms are stateful. Forms are made of inputs fields which are modifiable by the user.
+All modifications that are made to a component should be handled by React itself and kept in state.
+
+Allowing React to deal with all the modifications, helps us to maintain in sync the visual component that the user is interacting with on the DOM with the state of the React component.
+
+Let's see with an example how to deal with forms:
+
+```
+class TimerForm extends React.Component {
+  state = {
+    title: this.props.title || '',
+  };
+
+  ...
+
+  render() {
+    <div>
+      <label>Title</label>
+      <input 
+        type='text'
+        value={this.state.title}
+      />
+    </div>
+  }
+}
+```
+
+In this case, we set the state of the property to the value passed down via props. If we are creating a new TimerForm, the title will be empty. If we are editing an existing TimerForm, the title will be taken from the state.
+
+The main problem with this approach is that we don't have a way for the user to modify this state. Initially, the input will be in-sync with the state; however, when the user will make any modification, the input field will become out-of-sync with the component's state.
+
+React provides an easy fix to this issue, allowing us to use the **onChange** attribute for the input element. Every time the input field changes, React will invoke the function that we specify inside the onChange attribute (*handleTitleChange*).
+
+```
+class TimerForm extends React.Component {
+  state = {
+    title: this.props.title || '',
+  }
+
+  handleTitleChange = (e) => {
+    this.setState({
+      title: e.target.value
+    })
+  }
+
+  render() {
+    <div>
+      <label>Title</label>
+      <input 
+        type='text'
+        value={this.state.title}
+        onChange={this.handleTitleChange}
+      />
+    </div>
+  }
+}
+```
+
+React invokes the handleTitleChange function, that we pass to onChange, with an event object (e).
+The event object will include the updated value of the input field inside the *target.value*, that will be used to update the state to the new value and maintain it in-sync with the input field.
