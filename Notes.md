@@ -120,3 +120,10 @@ class TimerForm extends React.Component {
 
 React invokes the handleTitleChange function, that we pass to onChange, with an event object (e).
 The event object will include the updated value of the input field inside the *target.value*, that will be used to update the state to the new value and maintain it in-sync with the input field.
+
+
+## 6: Add inverse data flow
+
+So far, we saw that children communicate with parents by calling functions that are passed to them via props.
+The next step consists in adding *onClick* handlers to the buttons, in order to call functions that are passed down as props from the components that own the state being manipulated.
+
