@@ -205,12 +205,23 @@ class EditableTimer extends React.Component {
 }
 
 class Timer extends React.Component {
+  componentDidMount() {
+    // forceUpdate --> elapsed and runningSince will not be changing while the timer is running, so we need to force the React component to re-render
+    // setInterval will invoke the function forceUpdate() every 50 ms, causing the component to re-render
+    this.forceUpdateInterval = setInterval(() => this.forceUpdate(), 50);
+  }
+
+  // componentWillUnmount() is called before a component is removed from the app
+  componentWillUnmount() {
+    clearInterval(this.forceUpdateInterval);
+  }
+
   handleTrashClick = () => {
     this.props.onTrashClick(this.props.id);
   };
 
   render() {
-    const elapsedString = helpers.renderElapsedString(this.props.elapsed);
+    const elapsedString = helpers.renderElapsedString(this.props.elapsed, this.props.runningSince);
     return (
       <div className='ui centered card'>
         <div className='content'>
