@@ -127,3 +127,12 @@ The event object will include the updated value of the input field inside the *t
 So far, we saw that children communicate with parents by calling functions that are passed to them via props.
 The next step consists in adding *onClick* handlers to the buttons, in order to call functions that are passed down as props from the components that own the state being manipulated.
 
+
+## 7: Add server communication (Components & Servers)
+
+The state management of a React app takes place in the top-level component (*parent*). Then, through the *component tree*, data flows top-down to the *leaf components*. Finally, leaf components will communicate the events to the state managers by calling a prop-function.
+
+At this step of our framework for building React apps, the state is hard-coded and it will live as long as the browser window is open.
+
+To fix this issue, we need our React app to communicate with a server, which will take care of making the data persistent.
+
