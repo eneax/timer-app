@@ -136,3 +136,11 @@ At this step of our framework for building React apps, the state is hard-coded a
 
 To fix this issue, we need our React app to communicate with a server, which will take care of making the data persistent.
 
+
+If we perform an operation on the React (“client”) state that we want to be persisted, then we also need to notify the server of that state change. This will keep the two states in sync.
+
+* First of all, React initializes the component and sets the state to an object with the property *timers* (for instance) and returns a blank array.
+* React calls render on the parent component. In order for the render to complete, its children must be rendered.
+* Once the children are rendered, the initial render of the parent component is finished and the HTML is written to the DOM.
+* *componentDidMount()* is invoked, so the component is mounted and the method, that we write inside of it, will be called. This method will make the HTTP request to the server (i.e. requesting a list of timers) and when the client hears back, it invokes a success function. The success function is passed as argument the array of timers returned by the server and a new render will be triggered from the setState(). This new render will populate the app with children components and their own children too.
+* Finally, the app is loaded and the user will think that all of this loaded instantaneously from the start.
