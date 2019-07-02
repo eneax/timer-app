@@ -74,6 +74,11 @@ class TimersDashboard extends React.Component {
         }
       }),
     });
+
+    client.startTimer({
+      id: timerId,
+      start: now,
+    });
   };
 
   handleStopClick = (timerId) => {
@@ -96,6 +101,11 @@ class TimersDashboard extends React.Component {
           return timer;
         }
       }),
+    });
+
+    client.stopTimer({
+      id: timerId,
+      stop: now,
     });
   };
 
